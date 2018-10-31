@@ -1,84 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as grid from './actions/gridAction';
+
 import './App.css';
 import styled from 'styled-components';
 import Grid from './components/Grid';
 import ControlPanel from './components/ControlPanel';
-import DEFAULTS from './defaults';
 
 class App extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      age: 0,
-      size: DEFAULTS.size,
-      grid: this.getEmptyGrid(DEFAULTS.size)
-    };
-
     this.time = null;
   }
 
-  getEmptyGrid(size) {
-    return Array(size).fill(0).map(()=>{
-      return Array(size).fill(0);
-    });
-  }
-
-  getCellBasedOnRules(gen, i, j) {
-    function getNeighbourCount(count = 0) {
-      if (i !== 0) {
-        count += gen[i - 1][j - 1] === 1 ? 1: 0;
-        count += gen[i - 1][j] === 1 ? 1: 0;
-        count += gen[i - 1][j + 1] === 1 ? 1: 0;
-      }
-      if (i !== gen.length - 1) {
-        count += gen[i + 1][j - 1] === 1 ? 1: 0;
-        count += gen[i + 1][j] === 1 ? 1: 0;
-        count += gen[i + 1][j + 1] === 1 ? 1: 0;
-      }
-      count += gen[i][j - 1] === 1 ? 1: 0;
-      count += gen[i][j + 1] === 1 ? 1: 0;
-      return count;
-    }
-
-    let count = getNeighbourCount();
-    if (gen[i][j] === 0){
-      return count === 3 ? 1 : 0;
-    }
-
-    return count === 2 || count === 3 ? 1 : 0;
-  }
-
-  getNextGen(gen, fn) {
-    return gen.map((row, i) => {
-      return row.map((cell, j) => {
-        return fn(gen, i, j);
-      })
-    });
-  }
-
   calculate() {
-    this.setState(function(state){
-      return {
-        age: state.age + 1,
-        grid: this.getNextGen(state.grid, this.getCellBasedOnRules)
-      }
-    });
-  }
-
-  generate() {
-    this.handleStop();
-    this.setState(function(state){
-      return {
-        age: 0,
-        grid: this.getNextGen(state.grid, () => (Math.round(Math.random())))
-      }
-    });
+    this.props.calculate();
   }
 
   handleRun() {
     this.handleStop();
-    this.time = setInterval(this.calculate.bind(this), DEFAULTS.speed);
+    this.time = setInterval(this.calculate.bind(this), this.props.speed);
   }
 
   handleStop() {
@@ -87,15 +29,12 @@ class App extends Component {
 
   handleChangeSize(event) {
     this.handleStop();
-    this.setState({
-      size: +event.target.value,
-      grid: this.getEmptyGrid(+event.target.value)
-    });
+    this.props.changeSize(+event.target.value);
   }
 
   handleGenerate() {
     this.handleStop();
-    this.generate();
+    this.props.generate();
   }
 
   render() {
@@ -106,11 +45,11 @@ class App extends Component {
         </header>
         <Main>
           <Field>
-            <Grid grid={this.state.grid} size={this.state.size} />
+            <Grid grid={this.props.grid} size={this.props.size} />
           </Field>
           <ControlPanel
-            age={this.state.age}
-            size={this.state.size}
+            age={this.props.age}
+            size={this.props.size}
             run={this.handleRun.bind(this)}
             stop={this.handleStop.bind(this)}
             generate={this.handleGenerate.bind(this)}
@@ -145,4 +84,13 @@ const H1 = styled.h1`
   padding: 1em;
 `
 
-export default App;
+export default connect(store => ({
+  grid: store.grid.grid,
+  age: store.grid.age,
+  size: store.grid.size,
+  speed: store.grid.speed,
+}), dispatch => ({
+  generate: () => dispatch(grid.generate()),
+  calculate: () => dispatch(grid.calculate()),
+  changeSize: (size) => dispatch(grid.changeSize(size))
+}))(App);
