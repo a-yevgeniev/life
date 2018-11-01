@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import AgeCounter from './AgeCounter';
 
-const ControlPanel = ({ age, size, generate, run, stop, changeSize }) => (
+const ControlPanel = ({ age, size, isRunning, generate, run, stop, changeSize }) => (
   <Panel>
-    <Button onClick={generate}>generate</Button>
-    <Button onClick={run}>run</Button>
-    <Button onClick={stop}>stop</Button>
+    <Button onClick={generate} disabled={isRunning}>generate</Button>
+    <Button onClick={run} disabled={isRunning}>run</Button>
+    <Button onClick={stop} disabled={!isRunning}>stop</Button>
     <div>
       <label>Size {size}</label>
       <Input type="range" onChange={changeSize} value={size} min="1" max="100" />

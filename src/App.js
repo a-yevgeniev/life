@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as grid from './actions/gridAction';
+import * as action from './actions/appAction';
 
 import './App.css';
 import styled from 'styled-components';
@@ -21,20 +21,17 @@ class App extends Component {
   handleRun() {
     this.handleStop();
     this.time = setInterval(this.calculate.bind(this), this.props.speed);
+    this.props.start();
   }
 
   handleStop() {
     clearInterval(this.time);
+    this.props.stop();
   }
 
   handleChangeSize(event) {
     this.handleStop();
     this.props.changeSize(+event.target.value);
-  }
-
-  handleGenerate() {
-    this.handleStop();
-    this.props.generate();
   }
 
   render() {
@@ -50,9 +47,10 @@ class App extends Component {
           <ControlPanel
             age={this.props.age}
             size={this.props.size}
+            isRunning={this.props.isRunning}
             run={this.handleRun.bind(this)}
             stop={this.handleStop.bind(this)}
-            generate={this.handleGenerate.bind(this)}
+            generate={this.props.generate.bind(this)}
             changeSize={this.handleChangeSize.bind(this)}
           />
         </Main>
@@ -86,11 +84,14 @@ const H1 = styled.h1`
 
 export default connect(store => ({
   grid: store.grid.grid,
-  age: store.grid.age,
   size: store.grid.size,
-  speed: store.grid.speed,
+  age: store.app.age,
+  speed: store.app.speed,
+  isRunning: store.app.isRunning
 }), dispatch => ({
-  generate: () => dispatch(grid.generate()),
-  calculate: () => dispatch(grid.calculate()),
-  changeSize: (size) => dispatch(grid.changeSize(size))
+  generate: () => dispatch(action.generate()),
+  calculate: () => dispatch(action.calculate()),
+  changeSize: (size) => dispatch(action.changeSize(size)),
+  start: (size) => dispatch(action.start(size)),
+  stop: (size) => dispatch(action.stop(size)),
 }))(App);

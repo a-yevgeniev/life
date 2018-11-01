@@ -40,9 +40,7 @@ function getCellBasedOnRules(gen, i, j) {
 }
 
 const initialState = {
-  age: 0,
   size: DEFAULTS.size,
-  speed: DEFAULTS.speed,
   grid: getEmptyGrid(DEFAULTS.size)
 };
 
@@ -50,12 +48,10 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case 'GENERATE_ACTION':
       return Object.assign({}, state, {
-        age: 0,
         grid: getNextGen(state.grid, () => (Math.round(Math.random())))
       })
     case 'CALCULATE_ACTION':
       return Object.assign({}, state, {
-        age: state.age + 1,
         grid: getNextGen(state.grid, getCellBasedOnRules)
       })
     case 'CHANGESIZE_ACTION':
