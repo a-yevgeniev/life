@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import AgeCounter from './AgeCounter';
 
-const ControlPanel = ({ age, size, isRunning, generate, run, stop, changeSize }) => (
+const ControlPanel = ({ size, isRunning, generate, run, stop, changeSize }) => (
   <Panel>
-    <Button onClick={generate} disabled={isRunning}>generate</Button>
-    <Button onClick={run} disabled={isRunning}>run</Button>
-    <Button onClick={stop} disabled={!isRunning}>stop</Button>
+    <Button onClick={generate} disabled={isRunning}>Generate</Button>
+    <Button onClick={run} disabled={isRunning}>Run</Button>
+    <Button onClick={stop} disabled={!isRunning}>Stop</Button>
     <div>
       <label>Size {size}</label>
       <Input type="range" onChange={changeSize} value={size} min="1" max="100" />
     </div>
-    <AgeCounter count={age}/>
+    <Info>
+      <p>To start the game press 'Generate' and then 'Run'</p>
+      <p>Revert the cell by clicking on it</p>
+    </Info>
   </Panel>
 )
 
@@ -30,4 +32,8 @@ const Button = styled.button`
 const Input = styled.input`
   width: 100%;
   margin-bottom: 30px;
+`
+
+const Info = styled.div`
+  font-size: 14px;
 `

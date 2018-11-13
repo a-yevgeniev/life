@@ -28,3 +28,11 @@ export const changeSize = (size) => dispatch => {
     payload: size
   })
 }
+
+export const revertCell = (i, j) => dispatch => {
+  dispatch({
+    type: 'REVERTCELL_ACTION',
+    i: i,
+    j: j,
+  })
+}

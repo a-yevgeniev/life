@@ -14,6 +14,14 @@ function getNextGen(gen, fn) {
   });
 }
 
+function copy(arr) {
+  return arr.map((row, i) => {
+    return row.map((cell, j) => {
+      return cell;
+    })
+  });
+}
+
 function getCellBasedOnRules(gen, i, j) {
   function getNeighbourCount(count = 0) {
     if (i !== 0) {
@@ -58,6 +66,12 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         size: action.payload,
         grid: getEmptyGrid(action.payload)
+      })
+    case 'REVERTCELL_ACTION':
+      var copyArr = copy(state.grid);
+      copyArr[action.i][action.j] = copyArr[action.i][action.j] === 0 ? 1: 0;
+      return Object.assign({}, state, {
+        grid: copyArr
       })
     default:
       return state

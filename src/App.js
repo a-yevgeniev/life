@@ -42,10 +42,14 @@ class App extends Component {
         </header>
         <Main>
           <Field>
-            <Grid grid={this.props.grid} size={this.props.size} />
+            <Grid
+              grid={this.props.grid}
+              size={this.props.size}
+              age={this.props.age}
+              isRunning={this.props.isRunning}
+              revertCell={this.props.revertCell} />
           </Field>
           <ControlPanel
-            age={this.props.age}
             size={this.props.size}
             isRunning={this.props.isRunning}
             run={this.handleRun.bind(this)}
@@ -71,6 +75,7 @@ const Main = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-wrap: wrap;
 `
 
 const Field = styled.div`
@@ -94,4 +99,5 @@ export default connect(store => ({
   changeSize: (size) => dispatch(action.changeSize(size)),
   start: (size) => dispatch(action.start(size)),
   stop: (size) => dispatch(action.stop(size)),
+  revertCell: (i, j) => dispatch(action.revertCell(i, j)),
 }))(App);
