@@ -3,37 +3,30 @@ import * as action from '../actions/appAction';
 import ControlPanel from '../components/ControlPanel';
 
 let time = null;
-const speed = 500;
 
-const handleRun = (dispatch) => {
-  handleStop(dispatch);
-  time = setInterval(() => {
-    dispatch(action.calculate())
-  }, speed);
-  dispatch(action.start());
-}
-
-const handleStop = (dispatch) => {
-  clearInterval(time);
-  time = null;
-  dispatch(action.stop());
-}
-
-const handleChangeSize = (event, dispatch) => {
-  handleStop(dispatch);
-  dispatch(action.changeSize(+event.target.value))
+const handleToggle = (dispatch, speed, isRunning) => {
+  if (isRunning) {
+    clearInterval(time);
+    time = null;
+    dispatch(action.stop());
+  } else {
+    time = setInterval(() => {
+      dispatch(action.calculate())
+    }, speed);
+    dispatch(action.start());
+  }
 }
 
 const mapStateToProps = state => ({
   size: state.grid.size,
+  speed: state.app.speed,
   isRunning: state.app.isRunning
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   generate: () => dispatch(action.generate()),
-  changeSize: (e) => handleChangeSize(e, dispatch),
-  run: () => handleRun(dispatch),
-  stop: () => handleStop(dispatch),
+  changeSize: (e) => dispatch(action.changeSize(+e.target.value)),
+  toggle: (speed, isRunning) => handleToggle(dispatch, speed, isRunning),
 });
 
 export default connect(

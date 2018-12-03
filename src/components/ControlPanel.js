@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ControlPanel = ({ size, changeSize, isRunning, generate, run, stop}) => (
+const ControlPanel = ({ size, speed, isRunning, changeSize, generate, toggle}) => (
   <Panel>
     <Button onClick={generate} disabled={isRunning}>Generate</Button>
-    <Button onClick={run} disabled={isRunning}>Run</Button>
-    <Button onClick={stop} disabled={!isRunning}>Stop</Button>
+    <Button onClick={() => toggle(speed, isRunning)}>
+      {!isRunning ? 'Run' : 'Stop'}
+    </Button>
     <div>
       <label>Size {size}</label>
-      <Input type="range" onChange={changeSize} value={size} min="1" max="100" />
+      <Input type="range" onChange={changeSize} disabled={isRunning} value={size} min="1" max="100" />
     </div>
     <Info>
       <p>To start the game press 'Generate' and then 'Run'</p>
