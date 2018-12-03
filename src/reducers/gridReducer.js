@@ -68,6 +68,10 @@ export default (state = initialState, action) => {
         grid: getEmptyGrid(action.payload)
       })
     case 'REVERTCELL_ACTION':
+      if (state.isRunning || action.i === undefined || action.j === undefined) {
+        return state;
+      }
+
       var copyArr = copy(state.grid);
       copyArr[action.i][action.j] = copyArr[action.i][action.j] === 0 ? 1: 0;
       return Object.assign({}, state, {

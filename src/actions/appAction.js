@@ -1,38 +1,26 @@
-export const start = () => dispatch => {
-  dispatch({
-    type: 'START_ACTION'
-  })
-}
+export const start = () => ({
+  type: 'START_ACTION'
+})
 
-export const stop = () => dispatch => {
-  dispatch({
-    type: 'STOP_ACTION'
-  })
-}
+export const stop = () => ({
+  type: 'STOP_ACTION'
+})
 
-export const generate = () => dispatch => {
-  dispatch({
-    type: 'GENERATE_ACTION'
-  })
-}
+export const generate = () => ({
+  type: 'GENERATE_ACTION'
+})
 
-export const calculate = () => dispatch => {
-  dispatch({
-    type: 'CALCULATE_ACTION'
-  })
-}
+export const calculate = () => ({
+  type: 'CALCULATE_ACTION'
+})
 
-export const changeSize = (size) => dispatch => {
-  dispatch({
-    type: 'CHANGESIZE_ACTION',
-    payload: size
-  })
-}
+export const changeSize = (size) => ({
+  type: 'CHANGESIZE_ACTION',
+  payload: size
+})
 
-export const revertCell = (i, j) => dispatch => {
-  dispatch({
-    type: 'REVERTCELL_ACTION',
-    i: i,
-    j: j,
-  })
-}
+export const revertCell = (i, j) => ({
+  type: 'REVERTCELL_ACTION',
+  i: i,
+  j: j,
+})

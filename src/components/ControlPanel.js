@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ControlPanel = ({ size, isRunning, generate, run, stop, changeSize }) => (
+const ControlPanel = ({ size, changeSize, isRunning, generate, run, stop}) => (
   <Panel>
     <Button onClick={generate} disabled={isRunning}>Generate</Button>
     <Button onClick={run} disabled={isRunning}>Run</Button>
