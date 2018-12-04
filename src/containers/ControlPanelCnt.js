@@ -20,13 +20,14 @@ const handleToggle = (dispatch, speed, isRunning) => {
 const mapStateToProps = state => ({
   size: state.grid.size,
   speed: state.app.speed,
-  isRunning: state.app.isRunning
+  isRunning: state.app.isRunning,
+  figures: state.app.figures,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  generate: () => dispatch(action.generate()),
+const mapDispatchToProps = (dispatch) => ({
   changeSize: (e) => dispatch(action.changeSize(+e.target.value)),
   toggle: (speed, isRunning) => handleToggle(dispatch, speed, isRunning),
+  selectFigure: (val) => dispatch(action.draw(val))
 });
 
 export default connect(

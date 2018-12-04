@@ -6,10 +6,6 @@ export const stop = () => ({
   type: 'STOP_ACTION'
 })
 
-export const generate = () => ({
-  type: 'GENERATE_ACTION'
-})
-
 export const calculate = () => ({
   type: 'CALCULATE_ACTION'
 })
@@ -23,4 +19,9 @@ export const revertCell = (i, j) => ({
   type: 'REVERTCELL_ACTION',
   i: i,
   j: j,
+})
+
+export const draw = (figure) => ({
+  type: 'DRAW_ACTION',
+  payload: figure
 })

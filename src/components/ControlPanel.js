@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ControlPanel = ({ size, speed, isRunning, changeSize, generate, toggle}) => (
+const ControlPanel = ({ size, speed, isRunning, figures, changeSize, toggle, selectFigure}) => (
   <Panel>
-    <Button onClick={generate} disabled={isRunning}>Generate</Button>
+    <Select onChange={(e) => selectFigure(e.target.value)}>
+      <PlaceholderOption selected disabled>Select figure</PlaceholderOption>
+      <option key="clear" value="clear">clear</option>
+      <option key="random" value="random">random</option>
+      {Object.keys(figures).map((figure) => (
+        <option key={figure} value={figure}>{figure}</option>
+      ))}
+    </Select>
     <Button onClick={() => toggle(speed, isRunning)}>
       {!isRunning ? 'Run' : 'Stop'}
     </Button>
@@ -12,7 +19,7 @@ const ControlPanel = ({ size, speed, isRunning, changeSize, generate, toggle}) =
       <Input type="range" onChange={changeSize} disabled={isRunning} value={size} min="1" max="100" />
     </div>
     <Info>
-      <p>To start the game press 'Generate' and then 'Run'</p>
+      <p>To start the game choose figure from dropdown and then press 'Run'</p>
       <p>Revert the cell by clicking on it</p>
     </Info>
   </Panel>
@@ -37,4 +44,13 @@ const Input = styled.input`
 
 const Info = styled.div`
   font-size: 14px;
+`
+
+const Select = styled.select`
+  width: 100%;
+  margin-bottom: 30px;
+`
+
+const PlaceholderOption = styled.option`
+  display: none;
 `

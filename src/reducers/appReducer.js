@@ -3,7 +3,8 @@ import DEFAULTS from '../defaults';
 const initialState = {
   age: 0,
   speed: DEFAULTS.speed,
-  isRunning: false
+  isRunning: false,
+  figures: DEFAULTS.figures,
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +17,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         isRunning: false,
       })
-    case 'GENERATE_ACTION':
+    case 'DRAW_ACTION':
       return Object.assign({}, state, {
         age: 0,
       })
