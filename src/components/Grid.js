@@ -1,50 +1,38 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Cell from './Cell';
+import React from 'react';
 import styled from 'styled-components';
 
-class Grid extends Component {
-  constructor(props) {
-    super(props);
+import Cell from './Cell';
+import AgeCounter from './AgeCounter';
 
-    this.area = React.createRef();
-
-    this.state = {
-      elSize: 0
-    };
-  }
-
-  calculateElSize () {
-    this.setState({
-      elSize: ReactDOM.findDOMNode(this.area.current).getBoundingClientRect().width / this.props.size
-    });
-  }
-
-  componentDidMount() {
-    this.calculateElSize();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.size !== prevProps.size) {
-      this.calculateElSize();
-    }
-  }
-
-  render() {
-    return (
-      <GridWrap innerRef={this.area}>
-        {this.props.grid.map((row, i) => {
-          return row.map((cell, j) => {
-            return <Cell key={`${i}${j}`} alive={cell} size={this.state.elSize} />
-          })
-        })}
-      </GridWrap>
-    );
-  }
-}
+const Grid = ({ grid, age, width, size, onClick }) => (
+  <Field width={width}>
+    <GridWrap onClick={onClick}>
+      {grid.map((row, i) => {
+        return row.map((cell, j) => {
+          return <Cell
+            key={`${i}${j}`}
+            alive={cell}
+            i={i}
+            j={j}
+            size={size} />
+        })
+      })}
+    </GridWrap>
+    <AgeCounter count={age}/>
+  </Field>
+);
 
 export default Grid;
 
+
+const Field = styled.div`
+  max-width: ${props => props.width}px;
+  flex: 1 0 auto;
+
+  @media screen and (max-width: ${props => props.width}px) {
+    transform: scale(0.5);
+  }
+`
 
 const GridWrap = styled.div`
   width: 100%;
