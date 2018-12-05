@@ -5,9 +5,10 @@ import Grid from '../components/Grid';
 
 const mapStateToProps = state => ({
   grid: state.grid.grid,
-  size: 500 / state.grid.size,
+  size: state.grid.width / state.grid.size,
   age: state.app.age,
-  isRunning: state.app.isRunning
+  isRunning: state.app.isRunning,
+  width: state.grid.width,
 });
 
 const mapDispatchToProps = (dispatch) => ({

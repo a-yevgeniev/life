@@ -71,7 +71,8 @@ function getNormalizedFigure(f, size) {
 const initialState = {
   size: DEFAULTS.size,
   grid: getEmptyGrid(DEFAULTS.size),
-  figures: DEFAULTS.figures
+  width: DEFAULTS.width,
+  figures: DEFAULTS.figures,
 };
 
 export default (state = initialState, action) => {
@@ -108,7 +109,7 @@ export default (state = initialState, action) => {
         });
       }
 
-      const figure = initialState.figures[action.payload];
+      const figure = state.figures[action.payload];
       if (!figure){
         return state;
       }

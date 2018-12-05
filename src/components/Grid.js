@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import Cell from './Cell';
 import AgeCounter from './AgeCounter';
 
-const Grid = ({ grid, age, area, size, onClick }) => (
-  <Field>
+const Grid = ({ grid, age, width, size, onClick }) => (
+  <Field width={width}>
     <GridWrap onClick={onClick}>
       {grid.map((row, i) => {
         return row.map((cell, j) => {
@@ -26,10 +26,10 @@ export default Grid;
 
 
 const Field = styled.div`
-  max-width: 500px;
+  max-width: ${props => props.width}px;
   flex: 1 0 auto;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: ${props => props.width}px) {
     transform: scale(0.5);
   }
 `

@@ -15,6 +15,11 @@ export const changeSize = (size) => ({
   payload: size
 })
 
+export const changeSpeed = (speed) => ({
+  type: 'CHANGESPEED_ACTION',
+  payload: speed
+})
+
 export const revertCell = (i, j) => ({
   type: 'REVERTCELL_ACTION',
   i: i,

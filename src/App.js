@@ -8,7 +8,7 @@ import ControlPanel from './containers/ControlPanelCnt';
 const App = () => (
   <Content>
     <header>
-      <H1>The Game of Life</H1>
+      <H1>Conway's Game of Life</H1>
     </header>
     <Main>
       <Grid />

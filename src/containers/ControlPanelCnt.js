@@ -12,7 +12,7 @@ const handleToggle = (dispatch, speed, isRunning) => {
   } else {
     time = setInterval(() => {
       dispatch(action.calculate())
-    }, speed);
+    }, 1000/speed);
     dispatch(action.start());
   }
 }
@@ -21,11 +21,12 @@ const mapStateToProps = state => ({
   size: state.grid.size,
   speed: state.app.speed,
   isRunning: state.app.isRunning,
-  figures: state.app.figures,
+  figures: Object.keys(state.grid.figures),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeSize: (e) => dispatch(action.changeSize(+e.target.value)),
+  changeSpeed: (e) => dispatch(action.changeSpeed(+e.target.value)),
   toggle: (speed, isRunning) => handleToggle(dispatch, speed, isRunning),
   selectFigure: (val) => dispatch(action.draw(val))
 });
