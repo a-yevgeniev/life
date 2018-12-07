@@ -1,14 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
 
-const AgeCounter = ({className, count}) => (
-  <Counter className={className}>Age {count}</Counter>
+const AgeCounter = ({ count }) => (
+  <Typography align="center" gutterBottom>Age {count}</Typography>
 )
 
 export default AgeCounter;
-
-
-const Counter = styled.div`
-  margin: 20px 0;
-  text-align: center;
-`

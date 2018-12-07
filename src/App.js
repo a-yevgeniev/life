@@ -2,39 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 
 import './App.css';
-import Grid from './containers/GridCnt';
+import Space from './containers/GridCnt';
 import ControlPanel from './containers/ControlPanelCnt';
+import Header from './components/Header';
+import Grid from '@material-ui/core/Grid';
 
 const App = () => (
   <Content>
-    <header>
-      <H1>Conway's Game of Life</H1>
-    </header>
-    <Main>
-      <Grid />
-      <ControlPanel />
-    </Main>
+    <Header />
+    <Grid container alignItems="center" justify="space-around" style={{ overflow: 'hidden' }}>
+      <Grid item lg={6}>
+        <Space />
+      </Grid>
+      <Grid item lg={6}>
+        <ControlPanel />
+      </Grid>
+    </Grid>
   </Content>
 )
 
 export default App;
 
 const Content = styled.div`
-  text-align: center;
   background-color: #282c34;
   min-height: 100vh;
-  font-size: calc(10px + 2vmin);
-  color: white;
-`
-
-const Main = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-`
-
-const H1 = styled.h1`
-  margin: 0;
-  padding: 1em;
+  padding-top: 20px;
 `
