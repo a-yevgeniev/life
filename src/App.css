@@ -3,6 +3,15 @@
   background: #fff;
 }
 
+.cell2 {
+  background: #666;
+  position: absolute;
+}
+
 .cell-alive {
   background: #666;
+}
+
+canvas {
+  background: #fff;
 }

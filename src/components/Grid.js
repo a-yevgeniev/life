@@ -1,23 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Cell from './Cell';
 import AgeCounter from './AgeCounter';
+import Areal from './Areal';
 
-const Grid = ({ grid, age, width, size, onClick }) => (
+const Grid = ({ age, width, size, onClick, life }) => (
   <>
     <Field width={width}>
-      <GridWrap onClick={onClick}>
-        {grid.map((row, i) => {
-          return row.map((cell, j) => {
-            return <Cell
-              key={`${i}${j}`}
-              alive={cell}
-              i={i}
-              j={j}
-              size={size} />
-          })
-        })}
+      <GridWrap>
+        <Areal width={width} size={size} life={life} onClick={onClick} />
       </GridWrap>
     </Field>
     <AgeCounter count={age}/>
@@ -36,4 +27,5 @@ const GridWrap = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 `

@@ -20,10 +20,12 @@ export const changeSpeed = (speed) => ({
   payload: speed
 })
 
-export const revertCell = (i, j) => ({
+export const revertCell = (x, y) => ({
   type: 'REVERTCELL_ACTION',
-  i: i,
-  j: j,
+  payload: {
+    x,
+    y
+  }
 })
 
 export const draw = (figure) => ({
