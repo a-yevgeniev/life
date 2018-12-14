@@ -1,8 +1,5 @@
 import React from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,18 +7,37 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
+import Drawer from '@material-ui/core/Drawer';
+import AgeCounter from './AgeCounter';
+import Header from './Header';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
-  root: {
-    maxWidth: "500px",
-    margin: "0 auto",
+  drawer: {
+    width: "400px",
+    padding: "20px",
   },
 });
 
-const ControlPanel = ({ classes, size, speed, isRunning, figures, changeSize, changeSpeed, toggle, selectFigure}) => (
-  <Card className={classes.root}>
-    <CardContent>
+const ControlPanel = ({
+  classes,
+  size,
+  speed,
+  age,
+  isRunning,
+  figures,
+  changeSize,
+  changeSpeed,
+  toggle,
+  selectFigure,
+}) => (
+  <Drawer
+    open
+    anchor="right"
+    variant="permanent"
+  >
+    <div className={classes.drawer}>
+      <Header />
       <Typography gutterBottom>To start the game choose figure from dropdown and press 'Run'</Typography>
       <FormControl margin="normal" fullWidth>
         <InputLabel htmlFor="figure">Select figure</InputLabel>
@@ -72,8 +88,6 @@ const ControlPanel = ({ classes, size, speed, isRunning, figures, changeSize, ch
           onChange={changeSpeed}
         />
       </FormControl>
-    </CardContent>
-    <CardActions>
       <Button
         color="primary"
         variant="contained"
@@ -82,8 +96,9 @@ const ControlPanel = ({ classes, size, speed, isRunning, figures, changeSize, ch
       >
         {!isRunning ? 'Run' : 'Stop'}
       </Button>
-    </CardActions>
-  </Card>
+      <AgeCounter count={age}/>
+    </div>
+  </Drawer>
 )
 
 export default withStyles(styles)(ControlPanel);

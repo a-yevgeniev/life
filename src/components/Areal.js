@@ -11,19 +11,23 @@ class Areal extends React.Component {
 
   drawCanvas() {
     const ctx = this.refs.canvas.getContext('2d');
-    let { width, size } = this.props;
-    const cellSize = width/size;
+    let { size } = this.props;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
 
-    ctx.clearRect(0, 0, width, width);
+    this.refs.canvas.width = width;
+    this.refs.canvas.height = height;
 
-    for (let x = 0; x <= width; x += cellSize) {
+    ctx.clearRect(0, 0, width, height);
+
+    for (let x = 0; x <= width; x += size) {
         ctx.moveTo(0.5 + x, 0);
-        ctx.lineTo(0.5 + x, width);
+        ctx.lineTo(0.5 + x, height);
     }
 
-    for (let x = 0; x <= width; x += cellSize) {
-        ctx.moveTo(0, 0.5 + x);
-        ctx.lineTo(width, 0.5 + x);
+    for (let y = 0; y <= height; y += size) {
+        ctx.moveTo(0, 0.5 + y);
+        ctx.lineTo(width, 0.5 + y);
     }
 
     ctx.strokeStyle = "#808080";
@@ -38,16 +42,18 @@ class Areal extends React.Component {
 
   updateCanvas() {
     const ctx = this.refs.canvas.getContext('2d');
-    let { width, size, life } = this.props;
-    const cellSize = width/size;
+    let { size, life } = this.props;
 
-    ctx.clearRect(0, 0, width, width);
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    ctx.clearRect(0, 0, width, height);
 
     ctx.strokeStyle = "#808080";
     ctx.fillStyle = "#666";
     ctx.lineWidth = 1;
     for (let cell in life) {
-      ctx.fillRect((life[cell][0])*cellSize, (life[cell][1])*cellSize, cellSize, cellSize);
+      ctx.fillRect((life[cell][0])*size, (life[cell][1])*size, size, size);
     }
 
     ctx.stroke();
@@ -55,7 +61,7 @@ class Areal extends React.Component {
 
   render() {
     return (
-      <canvas ref="canvas" width={this.props.width} height={this.props.width} onClick={this.props.onClick}/>
+      <canvas ref="canvas" onClick={this.props.onClick}/>
     );
   }
 }

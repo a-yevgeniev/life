@@ -20,6 +20,7 @@ const handleToggle = (dispatch, speed, isRunning) => {
 const mapStateToProps = state => ({
   size: state.grid.size,
   speed: state.app.speed,
+  age: state.app.age,
   isRunning: state.app.isRunning,
   figures: Object.keys(state.grid.figures),
 });

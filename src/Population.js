@@ -64,14 +64,24 @@ export const getReverted = (life, cell) => {
   return newLife;
 }
 
-export const getByFigure = (figure) => {
+const getCentralizedFigure = (figure, size) => {
+  let dx = Math.round(window.innerWidth / (2 * size));
+  let dy = Math.round(window.innerHeight / (2 * size));
+  return figure.map(dot => {
+    return [dot[0] + dx, dot[1] + dy];
+  });
+}
+
+export const getByFigure = (figure, size) => {
   let life = {};
 
   if (!figure)
    return life;
 
-  for (let i = 0; i < figure.length; i++) {
-    life[figure[i].join('_')] = figure[i];
+  let newFigure = getCentralizedFigure(figure, size);
+
+  for (let i = 0; i < newFigure.length; i++) {
+    life[newFigure[i].join('_')] = newFigure[i];
   }
 
   return life;

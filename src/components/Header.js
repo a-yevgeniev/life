@@ -12,7 +12,7 @@ const styles = theme => ({
 
 const Header = ({ classes }) => (
   <header>
-    <Typography className={classes.typo} component="h1" variant="h2" align="center" gutterBottom>Conway's Game of Life</Typography>
+    <Typography className={classes.typo} component="h1" variant="h5" align="center" gutterBottom>Conway's Game of Life</Typography>
   </header>
 );
 

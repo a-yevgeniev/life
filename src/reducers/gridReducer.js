@@ -4,7 +4,6 @@ import { getNextGenaration, getRandom, getByFigure, getReverted } from '../Popul
 const initialState = {
   size: DEFAULTS.size,
   life: {},
-  width: DEFAULTS.width,
   figures: DEFAULTS.figures,
 };
 
@@ -25,8 +24,8 @@ export default (state = initialState, action) => {
 
       return Object.assign({}, state, {
         life: getReverted(state.life, {
-          x: Math.floor(action.payload.x*state.size/state.width),
-          y: Math.floor(action.payload.y*state.size/state.width),
+          x: Math.floor(action.payload.x/state.size),
+          y: Math.floor(action.payload.y/state.size),
         })
       })
     case 'DRAW_ACTION':
@@ -43,7 +42,7 @@ export default (state = initialState, action) => {
       }
 
       return Object.assign({}, state, {
-        life: getByFigure(state.figures[action.payload])
+        life: getByFigure(state.figures[action.payload], state.size)
       })
     default:
       return state
