@@ -28,13 +28,11 @@ export default (state = initialState, action) => {
           y: Math.floor(action.payload.y/state.size),
         })
       })
+    case 'CLEAR_ACTION':
+      return Object.assign({}, state, {
+        life: {}
+      })
     case 'DRAW_ACTION':
-      if (action.payload === 'clear') {
-        return Object.assign({}, state, {
-          life: {}
-        })
-      }
-
       if (action.payload === 'random') {
         return Object.assign({}, state, {
           life: getRandom(state.size)

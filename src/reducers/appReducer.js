@@ -16,6 +16,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         isRunning: false,
       })
+    case 'CLEAR_ACTION':
     case 'DRAW_ACTION':
       return Object.assign({}, state, {
         age: 0,

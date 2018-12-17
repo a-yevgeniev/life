@@ -32,3 +32,7 @@ export const draw = (figure) => ({
   type: 'DRAW_ACTION',
   payload: figure
 })
+
+export const clear = () => ({
+  type: 'CLEAR_ACTION'
+})

@@ -1,3 +1,11 @@
+const getCentralizedFigure = (figure, size) => {
+  let dx = Math.round((window.innerWidth - 400) / (2 * size));
+  let dy = Math.round(window.innerHeight / (2 * size));
+  return figure.map(dot => {
+    return [dot[0] + dx, dot[1] + dy];
+  });
+}
+
 export const getNextGenaration = (life) => {
   let check = {};
 
@@ -62,14 +70,6 @@ export const getReverted = (life, cell) => {
     newLife[key] = [cell.x, cell.y];
   }
   return newLife;
-}
-
-const getCentralizedFigure = (figure, size) => {
-  let dx = Math.round(window.innerWidth / (2 * size));
-  let dy = Math.round(window.innerHeight / (2 * size));
-  return figure.map(dot => {
-    return [dot[0] + dx, dot[1] + dy];
-  });
 }
 
 export const getByFigure = (figure, size) => {

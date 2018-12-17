@@ -2,18 +2,31 @@ import { connect } from 'react-redux';
 import * as action from '../actions/appAction';
 import ControlPanel from '../components/ControlPanel';
 
-let time = null;
+let timer = null;
+
+const startLife = (dispatch, speed) => {
+  const changeGeneration = () => {
+    dispatch(action.calculate());
+    timer = setTimeout(() => {
+      changeGeneration();
+    }, 1000/speed);
+  }
+
+  changeGeneration();
+  dispatch(action.start());
+};
+
+const stopLife = (dispatch) => {
+  clearTimeout(timer);
+  timer = null;
+  dispatch(action.stop());
+};
 
 const handleToggle = (dispatch, speed, isRunning) => {
   if (isRunning) {
-    clearInterval(time);
-    time = null;
-    dispatch(action.stop());
-  } else {
-    time = setInterval(() => {
-      dispatch(action.calculate())
-    }, 1000/speed);
-    dispatch(action.start());
+    stopLife(dispatch);
+   } else {
+    startLife(dispatch, speed);
   }
 }
 
@@ -28,6 +41,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
   changeSize: (e) => dispatch(action.changeSize(+e.target.value)),
   changeSpeed: (e) => dispatch(action.changeSpeed(+e.target.value)),
+  clear: () => dispatch(action.clear()),
   toggle: (speed, isRunning) => handleToggle(dispatch, speed, isRunning),
   selectFigure: (val) => dispatch(action.draw(val))
 });

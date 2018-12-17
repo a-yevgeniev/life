@@ -12,11 +12,20 @@ import AgeCounter from './AgeCounter';
 import Header from './Header';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = () => ({
+const styles = (theme) => ({
   drawer: {
+    display: "flex",
+    flexDirection: "column",
     width: "400px",
+    height: "100%",
     padding: "20px",
   },
+  margin: {
+    margin: `${theme.spacing.unit}px 0`,
+  },
+  footer: {
+    marginTop: "auto",
+  }
 });
 
 const ControlPanel = ({
@@ -29,6 +38,7 @@ const ControlPanel = ({
   changeSize,
   changeSpeed,
   toggle,
+  clear,
   selectFigure,
 }) => (
   <Drawer
@@ -49,7 +59,6 @@ const ControlPanel = ({
           value={''}
           onChange={(e) => selectFigure(e.target.value)}
         >
-          <MenuItem key="clear" value="clear">clear</MenuItem>
           <MenuItem key="random" value="random">random</MenuItem>
           {figures.map((figure) => (
             <MenuItem key={figure} value={figure}>{figure}</MenuItem>
@@ -57,9 +66,9 @@ const ControlPanel = ({
         </Select>
       </FormControl>
       <FormControl margin="normal" fullWidth>
-        <InputLabel htmlFor="size">Size {size}</InputLabel>
+        <InputLabel htmlFor="sizeInput">Size {size}</InputLabel>
         <Input
-          id="size"
+          id="sizeInput"
           type="range"
           inputProps={{
             min: 1,
@@ -73,9 +82,9 @@ const ControlPanel = ({
         />
       </FormControl>
       <FormControl margin="normal" fullWidth>
-        <InputLabel htmlFor="speed">Speed {speed}</InputLabel>
+        <InputLabel htmlFor="speedInput">Speed {speed}</InputLabel>
         <Input
-          id="speed"
+          id="speedInput"
           type="range"
           inputProps={{
             min: 1,
@@ -89,6 +98,15 @@ const ControlPanel = ({
         />
       </FormControl>
       <Button
+        className={classes.margin}
+        variant="contained"
+        fullWidth
+        onClick={clear}
+      >
+        Clear
+      </Button>
+      <Button
+        className={classes.margin}
         color="primary"
         variant="contained"
         fullWidth
@@ -96,7 +114,7 @@ const ControlPanel = ({
       >
         {!isRunning ? 'Run' : 'Stop'}
       </Button>
-      <AgeCounter count={age}/>
+      <AgeCounter className={classes.footer} count={age} />
     </div>
   </Drawer>
 )
