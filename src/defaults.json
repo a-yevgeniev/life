@@ -17,5 +17,9 @@
       [11, 7], [15, 7],
       [12, 8], [13, 8]
     ]
+  },
+  "design": {
+    "asideWidth": 375,
+    "isMenuOpened": false
   }
 }

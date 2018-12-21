@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import * as action from '../actions/appAction';
-import ControlPanel from '../components/ControlPanel';
+import Aside from '../components/Aside';
 
 let timer = null;
 
@@ -35,6 +35,7 @@ const mapStateToProps = state => ({
   speed: state.app.speed,
   age: state.app.age,
   isRunning: state.app.isRunning,
+  isMenuOpened: state.app.isMenuOpened,
   figures: Object.keys(state.grid.figures),
 });
 
@@ -43,10 +44,11 @@ const mapDispatchToProps = (dispatch) => ({
   changeSpeed: (e) => dispatch(action.changeSpeed(+e.target.value)),
   clear: () => dispatch(action.clear()),
   toggle: (speed, isRunning) => handleToggle(dispatch, speed, isRunning),
-  selectFigure: (val) => dispatch(action.draw(val))
+  selectFigure: (val, dx) => dispatch(action.draw(val, dx)),
+  onToggleClick: () => dispatch(action.toggleMenu()),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ControlPanel);
+)(Aside);

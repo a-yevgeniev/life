@@ -1,19 +1,34 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Hidden from '@material-ui/core/Hidden';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  typo: {
-    [theme.breakpoints.down('sm')]: {
-      fontSize: "30px",
-    },
-  },
+  appBar: {
+    zIndex: 1
+  }
 });
 
-const Header = ({ classes }) => (
-  <header>
-    <Typography className={classes.typo} component="h1" variant="h5" align="center" gutterBottom>Conway's Game of Life</Typography>
-  </header>
+const Header = ({ classes, onToggleClick }) => (
+  <Hidden mdUp implementation="css">
+    <AppBar position="fixed" className={classes.appBar}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="Open drawer"
+          onClick={onToggleClick}
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography>Conway's Game of Life</Typography>
+      </Toolbar>
+    </AppBar>
+  </Hidden>
 );
 
 export default withStyles(styles)(Header);

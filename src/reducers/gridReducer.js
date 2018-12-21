@@ -33,14 +33,14 @@ export default (state = initialState, action) => {
         life: {}
       })
     case 'DRAW_ACTION':
-      if (action.payload === 'random') {
+      if (action.payload.figure === 'random') {
         return Object.assign({}, state, {
           life: getRandom(state.size)
         })
       }
 
       return Object.assign({}, state, {
-        life: getByFigure(state.figures[action.payload], state.size)
+        life: getByFigure(state.figures[action.payload.figure], state.size, action.payload.dx)
       })
     default:
       return state

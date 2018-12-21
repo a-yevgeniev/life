@@ -1,5 +1,5 @@
-const getCentralizedFigure = (figure, size) => {
-  let dx = Math.round((window.innerWidth - 400) / (2 * size));
+const getCentralizedFigure = (figure, size, dxCorrection = 0) => {
+  let dx = Math.round((window.innerWidth - dxCorrection) / (2 * size));
   let dy = Math.round(window.innerHeight / (2 * size));
   return figure.map(dot => {
     return [dot[0] + dx, dot[1] + dy];
@@ -51,10 +51,13 @@ export const getNextGenaration = (life) => {
 }
 
 export const getRandom = (size) => {
+  const dx = 20;
+  const dy = 20;
+
   return Array(size*size).fill(0).reduce((acc, key, index) => {
     if (Math.round(Math.random()) === 1) {
-      const x = index % size;
-      const y = Math.floor(index / size);
+      const x = index % size + dx;
+      const y = Math.floor(index / size) + dy;
       acc[`${x}_${y}`] = [x, y];
     }
     return acc;
@@ -72,13 +75,13 @@ export const getReverted = (life, cell) => {
   return newLife;
 }
 
-export const getByFigure = (figure, size) => {
+export const getByFigure = (figure, size, dxCorrection) => {
   let life = {};
 
   if (!figure)
    return life;
 
-  let newFigure = getCentralizedFigure(figure, size);
+  let newFigure = getCentralizedFigure(figure, size, dxCorrection);
 
   for (let i = 0; i < newFigure.length; i++) {
     life[newFigure[i].join('_')] = newFigure[i];

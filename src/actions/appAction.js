@@ -28,11 +28,18 @@ export const revertCell = (x, y) => ({
   }
 })
 
-export const draw = (figure) => ({
+export const draw = (figure, dx) => ({
   type: 'DRAW_ACTION',
-  payload: figure
+  payload: {
+    dx,
+    figure,
+  }
 })
 
 export const clear = () => ({
   type: 'CLEAR_ACTION'
+})
+
+export const toggleMenu = () => ({
+  type: 'TOGGLEMENU_ACTION'
 })
