@@ -14,7 +14,7 @@ const styles = theme => ({
 });
 
 const Header = ({ classes, onToggleClick }) => (
-  <Hidden mdUp implementation="css">
+  <Hidden lgUp implementation="css">
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <IconButton

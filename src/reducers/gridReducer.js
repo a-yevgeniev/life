@@ -34,8 +34,10 @@ export default (state = initialState, action) => {
       })
     case 'DRAW_ACTION':
       if (action.payload.figure === 'random') {
+        let xN = Math.round(window.innerWidth / state.size);
+        let yN = Math.round(window.innerHeight / state.size);
         return Object.assign({}, state, {
-          life: getRandom(state.size)
+          life: getRandom(xN, yN)
         })
       }
 

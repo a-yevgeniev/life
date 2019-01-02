@@ -7,7 +7,7 @@ import DEFAULTS from '../defaults';
 
 const Aside = ({ classes, isMenuOpened, onToggleClick, ...props }) => (
   <>
-    <Hidden mdUp implementation="css">
+    <Hidden lgUp implementation="css">
       <Drawer
         variant="temporary"
         anchor="left"

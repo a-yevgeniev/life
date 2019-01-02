@@ -1,6 +1,4 @@
-const getCentralizedFigure = (figure, size, dxCorrection = 0) => {
-  let dx = Math.round((window.innerWidth - dxCorrection) / (2 * size));
-  let dy = Math.round(window.innerHeight / (2 * size));
+const getCentralizedFigure = (figure, dx, dy) => {
   return figure.map(dot => {
     return [dot[0] + dx, dot[1] + dy];
   });
@@ -50,14 +48,11 @@ export const getNextGenaration = (life) => {
   }, {});
 }
 
-export const getRandom = (size) => {
-  const dx = 20;
-  const dy = 20;
-
-  return Array(size*size).fill(0).reduce((acc, key, index) => {
+export const getRandom = (xN, yN) => {
+  return Array(xN*yN).fill(0).reduce((acc, key, index) => {
     if (Math.round(Math.random()) === 1) {
-      const x = index % size + dx;
-      const y = Math.floor(index / size) + dy;
+      const x = index % xN;
+      const y = Math.floor(index / xN);
       acc[`${x}_${y}`] = [x, y];
     }
     return acc;
@@ -75,13 +70,19 @@ export const getReverted = (life, cell) => {
   return newLife;
 }
 
-export const getByFigure = (figure, size, dxCorrection) => {
+export const getByFigure = (figure, size, dxCorrection = 0) => {
   let life = {};
 
   if (!figure)
    return life;
 
-  let newFigure = getCentralizedFigure(figure, size, dxCorrection);
+  let minX = figure.reduce((acc, point) => point[0] < acc ? point[0] : acc, figure[0][0]);
+  let maxX = figure.reduce((acc, point) => point[0] > acc ? point[0] : acc , figure[0][0]);
+  let minY = figure.reduce((acc, point) => point[1] < acc ? point[1] : acc, figure[0][1]);
+  let maxY = figure.reduce((acc, point) => point[1] > acc ? point[1] : acc , figure[0][1]);
+  let dx = Math.round((window.innerWidth - dxCorrection) / (2 * size) - (maxX - minX) / 2);
+  let dy = Math.round(window.innerHeight / (2 * size) - (maxY - minY) / 2);
+  let newFigure = getCentralizedFigure(figure, dx, dy);
 
   for (let i = 0; i < newFigure.length; i++) {
     life[newFigure[i].join('_')] = newFigure[i];
